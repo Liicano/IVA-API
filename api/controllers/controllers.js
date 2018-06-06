@@ -4,66 +4,65 @@ const nodemailer = require('nodemailer');
 
 
 var mongoose = require('mongoose'),
-Equipos = mongoose.model('Equipos'),
+Documento = mongoose.model('Documento'),
 Usuarios = mongoose.model('Usuarios');
 
 //----------------------------------
 //CONTROLADOR GENERAL
 //----------------------------------
 exports.index = function(req, res) {
-  res.send("Bienvenido a la API de VisualDeer");
+  res.send("Bienvenido a la API de Impresiones");
 };
 
 //----------------------------------
-//CONTROLADORES PARA - EQUIPOS -
+//CONTROLADORES PARA - DOCUMENTOS -
 //----------------------------------
 
-//LISTAR TODOS LOS EQUIPOS
-exports.Ver_Equipos = function(req, res) {
-  Equipos.find({}, function(err, equipos) {
+//LISTAR TODOS LOS DOCUMENTOS
+exports.Ver_Documentos = function(req, res) {
+  Documento.find({}, function(err, documentos) {
     if (err)
       res.send(err);
-    res.json(equipos);
+    res.json(documentos);
   });
 };
 
-//ENCONTRAR EQUIPO POR CODIGO
-exports.Ver_Equipo = function(req, res) {
-  Equipos.findOne({ 'codigo': req.params.codigo }, function (err, equipo) {
+//ENCONTRAR DOCUMENTO POR CODIGO
+exports.Ver_Documento = function(req, res) {
+  Documento.findOne({ 'codigo': req.params.codigo }, function (err, documento) {
   if (err) 
     res.send(err);
-  res.json(equipo);
+  res.json(documento);
 })
 };
 
-//MODIFICAR UN EQUIPO
-exports.Modificar_Equipo = function(req, res) {
-  console.log(req.body);
-  Equipos.findOneAndUpdate({codigo: req.params.codigo}, req.body, {new: true}, function(err, equipo) {
+//MODIFICAR UN DOCUMENTO
+exports.Modificar_Documento = function(req, res) {
+  Documento.findOneAndUpdate({codigo: req.params.codigo}, req.body, {new: true}, function(err, documento) {
     if (err)
       res.send(err);
-    res.json(equipo);
+    res.json(documento);
   });
 };
 
-//ELIMINAR UN EQUIPO
-exports.Eliminar_Equipo = function(req, res) {
-Equipos.remove({
+//ELIMINAR UN DOCUMENTO
+exports.Eliminar_Documento = function(req, res) {
+Documento.remove({
     codigo: req.params.codigo
-  }, function(err, equipo) {
+  }, function(err, documento) {
     if (err)
       res.send(err);
-    res.json({ message: 'Equipo eliminado con exito' });
+    res.json({ message: 'Documento eliminado con exito' });
   });
 };
 
-//INGRESAR UN NUEVO EQUIPO
-exports.Ingresar_Equipo = function(req, res) {
-  var Nuevo_Equipo = new Equipos(req.body);
-  Nuevo_Equipo.save(function(err, equipo) {
+//INGRESAR UN NUEVO DOCUMENTO
+exports.Ingresar_Documento = function(req, res) {
+  var Nuevo_Documento = new Documento(req.body);
+  Nuevo_Documento.save(function(err, documento) {
     if (err)
       res.send(err);
-    res.json(equipo);
+    res.json(documento);
   });
 };
 
@@ -117,7 +116,7 @@ exports.findByEmail = function(req, res) {
 
 
 
-//ENCONTRAR USUARIO POR CEDULA
+//ENCONTRAR USUARIO POR CEDULA PARA CHECK DE LOGIN
 exports.CheckLogin = function(req, res) {
 var password = req.body.password;
 var Check = false;
@@ -164,7 +163,7 @@ Usuarios.remove({
   }, function(err, usuario) {
     if (err)
       res.send(err);
-    res.json({ message: 'Usuario eliminado con exito BY ID' });
+    res.json({ message: 'Usuario eliminado con exito mediante ID' });
   });
 };
 
@@ -173,7 +172,7 @@ Usuarios.remove({
 //ENVIAR EMAIL DE RECUPERACION DE USUARIO
 exports.sendEmail = function(req, res) {
  console.log(req.params.email);
-  console.log(req.params.password);
+ console.log(req.params.password);
 
  let transporter = nodemailer.createTransport({
               pool:true,
@@ -192,7 +191,7 @@ exports.sendEmail = function(req, res) {
 
           // setup email data with unicode symbols
           let mailOptions = {
-              from: '"CheckRFID 👻" <checkRFID@gmail.com>', // sender address
+              from: '"Impresiones SISTEM 👻" <ImpreSistem@gmail.com>', // sender address
               to: req.params.email, // list of receivers
               subject: 'Recuperacion de contraseña', // Subject line
               text: '', // plain text body

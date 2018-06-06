@@ -12,14 +12,14 @@ app.route('/login').post(controller.CheckLogin);
 //----------------------------------
 //RUTAS PARA - EQUIPOS -
 //----------------------------------
-    app.route('/equipos')
-      .get(/*authController.isAuthenticated,*/ controller.Ver_Equipos)
-      .post(/*authController.isAuthenticated,*/ controller.Ingresar_Equipo);
+    app.route('/documentos')
+      .get(/*authController.isAuthenticated,*/ controller.Ver_Documentos)
+      .post(/*authController.isAuthenticated,*/ controller.Ingresar_Documento);
 
-    app.route('/equipo/:codigo')
-      .get(/*authController.isAuthenticated,*/ controller.Ver_Equipo)
-      .put(/*authController.isAuthenticated,*/ controller.Modificar_Equipo)
-      .delete(/*authController.isAuthenticated,*/ controller.Eliminar_Equipo);
+    app.route('/documento/:codigo')
+      .get(/*authController.isAuthenticated,*/ controller.Ver_Documento)
+      .put(/*authController.isAuthenticated,*/ controller.Modificar_Documento)
+      .delete(/*authController.isAuthenticated,*/ controller.Eliminar_Documento);
       
 
 //----------------------------------

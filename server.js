@@ -2,7 +2,7 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
-  Equipo = require('./api/models/equipoModel'), //Modelos creados
+  Documento = require('./api/models/documentoModel'), //Modelos creados
   Usuario = require('./api/models/usuarioModel'),
   jsonwebtoken = require("jsonwebtoken"),
   bodyParser = require('body-parser');
@@ -11,7 +11,7 @@ var passport = require('passport');
   
 // CONEXION A LA BBDD DE MONGO
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/AudioVisualDB'); 
+mongoose.connect('mongodb://localhost/ImpresionesBD'); 
 
 // Passport - SESIONES -
 app.use(passport.initialize());
@@ -39,4 +39,4 @@ app.listen(port);
 
 //PRUEBA DE CAMMBIO EN GIT
 
-console.log('API INICIADA EN EL PUERTO -> ' + port);
+console.log('API CORRIENDO EN EL PUERTO -> ' + port);
