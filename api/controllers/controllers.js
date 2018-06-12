@@ -4,69 +4,14 @@ const nodemailer = require('nodemailer');
 
 
 var mongoose = require('mongoose'),
-Documento = mongoose.model('Documento'),
 Usuarios = mongoose.model('Usuarios');
 
 //----------------------------------
 //CONTROLADOR GENERAL
 //----------------------------------
 exports.index = function(req, res) {
-  res.send("Bienvenido a la API de Impresiones");
+  res.send("Bienvenido a la API del sistema de PARSING IVA-VENTAS");
 };
-
-//----------------------------------
-//CONTROLADORES PARA - DOCUMENTOS -
-//----------------------------------
-
-//LISTAR TODOS LOS DOCUMENTOS
-exports.Ver_Documentos = function(req, res) {
-  Documento.find({}, function(err, documentos) {
-    if (err)
-      res.send(err);
-    res.json(documentos);
-  });
-};
-
-//ENCONTRAR DOCUMENTO POR CODIGO
-exports.Ver_Documento = function(req, res) {
-  Documento.findOne({ 'codigo': req.params.codigo }, function (err, documento) {
-  if (err) 
-    res.send(err);
-  res.json(documento);
-})
-};
-
-//MODIFICAR UN DOCUMENTO
-exports.Modificar_Documento = function(req, res) {
-  Documento.findOneAndUpdate({codigo: req.params.codigo}, req.body, {new: true}, function(err, documento) {
-    if (err)
-      res.send(err);
-    res.json(documento);
-  });
-};
-
-//ELIMINAR UN DOCUMENTO
-exports.Eliminar_Documento = function(req, res) {
-Documento.remove({
-    codigo: req.params.codigo
-  }, function(err, documento) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Documento eliminado con exito' });
-  });
-};
-
-//INGRESAR UN NUEVO DOCUMENTO
-exports.Ingresar_Documento = function(req, res) {
-  var Nuevo_Documento = new Documento(req.body);
-  Nuevo_Documento.save(function(err, documento) {
-    if (err)
-      res.send(err);
-    res.json(documento);
-  });
-};
-
-
 
 //----------------------------------
 //CONTROLADORES PARA - USUARIOS -
@@ -120,7 +65,7 @@ exports.findByEmail = function(req, res) {
 exports.CheckLogin = function(req, res) {
 var password = req.body.password;
 var Check = false;
-  Usuarios.findOne({ 'cedula': req.body.cedula }, function (err, usuario) {
+  Usuarios.findOne({ 'documento_identidad': req.body.cedula }, function (err, usuario) {
   if (err) 
     res.send(err);
   if (usuario && usuario.password == password){Check = true;}
@@ -180,8 +125,8 @@ exports.sendEmail = function(req, res) {
               port: 465,
               secure: true, // secure:true for port 465, secure:false for port 587
               auth: {
-                  user: 'hectorluisgonzalezlarreal@gmail.com',
-                  pass: '*Hl7369372'
+                  user: 'angieurechelopez@gmail.com',
+                  pass: 'SophiE*.*'
               },
               tls: {
                   rejectUnauthorized: false
@@ -208,4 +153,14 @@ exports.sendEmail = function(req, res) {
           });
 
 
+};
+
+
+//----------------------------------
+//CONTROLADORES PARA - DOCUMENTO -
+//----------------------------------
+
+exports.documentProcesar = function(req, res) {
+  var Documento = req.body;
+  console.log(req.file);
 };

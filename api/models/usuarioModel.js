@@ -4,18 +4,14 @@ var Schema = mongoose.Schema;
 
 //MODELO USUARIO
 var UsuarioSchema = new Schema({
-  cedula: {type: String, required: 'Es necesario ingresar la cedula de identidad'},
+  documento_identidad: {type: String, required: 'Es necesario ingresar la cedula de identidad'},
   password: {type: String}, 
   nombre: {type: String},
   apellido: {type: String},
   correo: {type: String},
   nivel: {type: String},
-  id_maquina: {type: String},
-   reglas:[{
-        max_impresiones: {type: String},
-        intervalo_impresiones: {type: String},
-        habilitado: {type: String, default: 'true'},
-  }]
+  nombre_empresa: {type: String},
+  identificador_empresa: {type: String}
 });
 
 

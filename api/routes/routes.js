@@ -9,18 +9,6 @@ var controller = require('../controllers/controllers');
 app.route('/').get(controller.index);
 
 app.route('/login').post(controller.CheckLogin);
-//----------------------------------
-//RUTAS PARA - EQUIPOS -
-//----------------------------------
-    app.route('/documentos')
-      .get(/*authController.isAuthenticated,*/ controller.Ver_Documentos)
-      .post(/*authController.isAuthenticated,*/ controller.Ingresar_Documento);
-
-    app.route('/documento/:codigo')
-      .get(/*authController.isAuthenticated,*/ controller.Ver_Documento)
-      .put(/*authController.isAuthenticated,*/ controller.Modificar_Documento)
-      .delete(/*authController.isAuthenticated,*/ controller.Eliminar_Documento);
-      
 
 //----------------------------------
 //RUTAS PARA - USUARIOS -
@@ -45,4 +33,19 @@ app.route('/login').post(controller.CheckLogin);
        //ENVIAR EMAIL DE RECUPERACION
       app.route('/recover/:email/:password')
       .post(controller.sendEmail);
+
+
+
+//----------------------------------
+//RUTAS PARA - PARSING DE DOCUMENTO -
+//----------------------------------
+
+
+ //RECIBIR DOCUMENTO - EXCEL -
+      app.route('/documento/procesar')
+      .post(controller.documentProcesar);
+
+
+
+
 };
